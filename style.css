@@ -1,0 +1,126 @@
+.logo-container {
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.logo {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.logo>img {
+    width: 100px;
+    height: 80px;
+
+    object-fit: contain;
+}
+
+.tag-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.tag-container>button {
+    margin-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: none;
+}
+
+#abuse {
+    background-color: #F29496;
+}
+
+.abuse.highlight {
+    fill: #F29496;
+}
+
+#housing {
+    background-color: #FFB9C4;
+}
+
+.housing.highlight {
+    fill: #FFB9C4;
+}
+
+#health {
+    background-color: #F4B3CE;
+}
+
+.health.highlight {
+    fill: #F4B3CE;
+}
+
+#discrimination {
+    background-color: #F4C7B1;
+}
+
+.discrimination.highlight {
+    fill: #F4C7B1;
+}
+
+#generations {
+    background-color: #C0F9FA;
+}
+
+.generations.highlight {
+    fill: #C0F9FA;
+}
+
+#gentrification {
+    background-color: #8DD1F1;
+}
+
+.gentrification.highlight {
+    fill: #8DD1F1;
+}
+
+#homelessness {
+    background-color: #7D99E8;
+}
+
+.homelessness.highlight {
+    fill: #7D99E8;
+}
+
+#inequality {
+    background-color: #D0B1FC;
+}
+
+.inequality.highlight {
+    fill: #D0B1FC;
+}
+
+#infrastructure {
+    background-color: #DFD2F4;
+}
+
+.infrastructure.highlight {
+    fill: #DFD2F4;
+}
+
+#accountability {
+    background-color: #68D1C5;
+}
+
+.accountability.highlight {
+    fill: #68D1C5;
+}
+
+#race {
+    background-color: #A1DE93;
+}
+
+.race.highlight {
+    fill: #A1DE93;
+}
+
+#violence {
+    background-color: #F7F48B;
+}
+
+.violence.highlight {
+    fill: #F7F48B;
+}
