@@ -30,6 +30,10 @@
     border: none;
 }
 
+.tag-container>button.active {
+    outline: solid gray;
+}
+
 #abuse {
     background-color: #F29496;
 }

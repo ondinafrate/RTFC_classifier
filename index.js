@@ -1,6 +1,6 @@
 const conversationsList = [1483, 1484, 1466, 1465, 1461, 1462, 1463, 1447, 1446, 1438, 1441, 1478, 1442, 1434, 1464, 1414, 1413, 1412, 1407, 1403, 1406, 1382, 1379, 1380, 1378, 1411, 1405, 1363, 1360, 1439, 1358, 1355, 1353, 1357, 1352, 1347, 1348, 1349, 1354, 1320, 1323, 1322, 1317, 1304, 1319, 1306, 1311, 1309, 1336, 1310, 1305, 1321, 1293, 1312, 1307, 1290, 1292, 1281, 1280, 1273, 1285, 1268, 1269, 1282, 1251, 1219, 1211, 1225, 1227, 1284, 1223, 1314, 1231, 1192, 1286, 1191, 1190, 1220, 1230, 1193, 1183, 1184, 1189, 1221, 1179, 1177, 1182, 1175, 1178, 1171, 1172, 1174, 1181, 1173, 1170, 1222, 1160, 1337, 1161, 1162, 1157, 1159, 1154, 1151, 1152, 1141, 1131, 1122, 1123];
 
-const width = 1100;
+const width = 1130;
 const height = 600;
 
 let svg = d3.select("#chart")
@@ -47,7 +47,7 @@ const tags = ['abuse', 'housing', 'health', 'discrimination', 'discrimination', 
 const conversationPadding = 5;
 const snippetHeight = 5;
 const verticalSnippetPadding = 1;
-const conversationWidth = 100;
+const conversationWidth = 120;
 
 function drawConversation({
     x,
@@ -126,7 +126,7 @@ function getConversationAndDraw(index, startY, startX) {
 
 
 
-            if (index < 108) {
+            if (index < 98) {
                 getConversationAndDraw(index + 1, nextStartY, startX);
             }
 
@@ -141,6 +141,7 @@ for (var i = 0; i < buttons.length; i++) {
 }
 
 function toggleSnippet(e) {
+    this.classList.toggle('active');
     const id = e.target.id;
     if (highlightedSnippets.has(id)) {
         highlightedSnippets.delete(id)
@@ -152,9 +153,15 @@ function toggleSnippet(e) {
 }
 
 function highlightSnippets() {
+    d3.selectAll('.snippet').style('opacity', 0.5);
     highlightedSnippets.forEach(id => {
-        d3.selectAll('.' + id).classed('highlight', true);
+        d3.selectAll('.' + id)
+            .style('opacity', 1)
+            .classed('highlight', true);
     });
+    if (highlightedSnippets.size === 0) {
+        d3.selectAll('.snippet').style('opacity', 1);
+    }
 }
 
 const strokeScale = d3.scaleLinear()
