@@ -77,7 +77,7 @@ function drawConversation({
     snippets.forEach((snippet, index) => {
         g.append('rect')
             .attr('class', () => {
-                return tags[Math.floor(Math.random() * tags.length * 2)]
+                return "snippet " + tags[Math.floor(Math.random() * tags.length * 2)]
             })
             .attr('x', x + conversationPadding + scale(snippet['audio_start_offset']))
             .attr('y', y + conversationPadding + ((snippetHeight + verticalSnippetPadding) * Number(snippet.speaker_id)))
@@ -157,8 +157,15 @@ function highlightSnippets() {
     });
 }
 
+const strokeScale = d3.scaleLinear()
+    .domain([1, 10])
+    .range([200, 100]);
+
+
 
 // ZOOM
+
+let zoomStroke = true;
 
 const zoom = d3.zoom()
     .scaleExtent([1, 10])
@@ -169,6 +176,14 @@ const zoom = d3.zoom()
     .on('zoom', handleZoom);
 
 function handleZoom(e) {
+    // if (e.transform.k > 1.5 && zoomStroke) {
+    //     d3.selectAll(".snippet.highlight").attr('stroke-opacity', "0");
+    //     zoomStroke = false;
+    // } else if (e.transform.k < 1.5 && !zoomStroke) {
+    //     d3.selectAll(".snippet.highlight").attr('stroke-opacity', "1");
+    //     zoomStroke = true;
+    // }
+
     d3.select('svg g')
         .attr('transform', e.transform);
 }
