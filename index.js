@@ -42,7 +42,7 @@ let g = svg.append('g');
 //     // })
 // });
 
-const tags = ['abuse', 'housing', 'health', 'discrimination', 'discrimination', 'generations', 'gentrification', 'homelessness', 'inequality', 'infrastructure', 'accountability', 'race', 'violence'];
+const tags = ['housing', 'healthcare', 'abuse', 'inequality', 'growth', 'generations', 'accountability', 'infrastructure'];
 
 const conversationPadding = 5;
 const snippetHeight = 5;
