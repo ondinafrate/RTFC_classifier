@@ -1,6 +1,6 @@
 .logo-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin-left: 20px;
     margin-top: 20px;
 }
@@ -34,12 +34,29 @@
     outline: solid gray;
 }
 
+.tag-container-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 1130px;
+}
+
+.tag-container-bottom>button {
+    flex: 1;
+    border: none;
+}
+
 #housing {
     background-color: #2296F3;
 }
 
 .housing.highlight {
     fill: #2296F3;
+
+}
+
+.line_housing {
+    stroke: #2296F3;
 }
 
 #healthcare {
@@ -50,12 +67,20 @@
     fill: #4CAF50;
 }
 
+.line_healthcare {
+    stroke: #4CAF50;
+}
+
 #generations {
     background-color: #FFC108;
 }
 
 .generations.highlight {
     fill: #FFC108;
+}
+
+.line_generations {
+    stroke: #FFC108;
 }
 
 #abuse {
@@ -66,12 +91,20 @@
     fill: #E91E63;
 }
 
+.line_abuse {
+    stroke: #E91E63;
+}
+
 #growth {
     background-color: #FF9801;
 }
 
 .growth.highlight {
     fill: #FF9801;
+}
+
+.line_growth {
+    stroke: #FF9801;
 }
 
 #inequality {
@@ -82,6 +115,10 @@
     fill: #F44335;
 }
 
+.line_inequality {
+    stroke: #F44335;
+}
+
 #infrastructure {
     background-color: #01BCD4;
 }
@@ -90,10 +127,18 @@
     fill: #01BCD4;
 }
 
+.line_infrastructure {
+    stroke: #01BCD4;
+}
+
 #accountability {
     background-color: #FFEB3B;
 }
 
 .accountability.highlight {
     fill: #FFEB3B;
+}
+
+.line_accountability {
+    stroke: #FFEB3B;
 }
