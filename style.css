@@ -10,9 +10,9 @@
     margin-left: 20px;
 }
 
-.logo>img {
-    width: 100px;
-    height: 80px;
+img {
+    width: 30px;
+    height: 30px;
 
     object-fit: contain;
 }
@@ -44,6 +44,12 @@
 .tag-container-bottom>button {
     flex: 1;
     border: none;
+}
+
+.tag-container-bottom>img {
+    flex: 1;
+    border: none;
+    margin-top: 4px;
 }
 
 #housing {
@@ -141,4 +147,18 @@
 
 .line_accountability {
     stroke: #FFEB3B;
+}
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    /* width: 60px;
+    height: 28px; */
+    padding: 5px;
+    font: 12px sans-serif;
+    background: white;
+    border: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    pointer-events: none;
 }

@@ -78,22 +78,27 @@ function drawConversation({
         .domain([0, duration])
         .range([0, width - 2 * conversationPadding]);
 
-    snippets.forEach((snippet, index) => {
-        g.append('rect')
-            .attr('class', () => {
-                return "snippet " + tags[Math.floor(Math.random() * tags.length * 10)]
-            })
-            .attr('x', x + conversationPadding + scale(snippet['audio_start_offset']))
-            .attr('y', y + conversationPadding + ((snippetHeight + verticalSnippetPadding) * Number(snippet.speaker_id)))
-            .attr('width', scale(snippet['duration']))
-            .attr('height', snippetHeight)
-            .attr('fill', function (d, i) {
-                return '#A9A9A9';
-            })
-    })
+    // snippets.forEach((snippet, index) => {
+    g.selectAll('snippet')
+        .data(snippets)
+        .enter()
+        .append('rect')
+        .attr('class', () => {
+            return "snippet " + tags[Math.floor(Math.random() * tags.length * 20)] + " " + tags[Math.floor(Math.random() * tags.length * 20)]
+        })
+        .attr('x', (snippet) => x + conversationPadding + scale(snippet['audio_start_offset']))
+        .attr('y', (snippet) => y + conversationPadding + ((snippetHeight + verticalSnippetPadding) * Number(snippet.speaker_id)))
+        .attr('width', (snippet) => scale(snippet['duration']))
+        .attr('height', snippetHeight)
+        .attr('fill', function (d, i) {
+            return '#A9A9A9';
+        })
+        .on("mouseover", mouseover)
+        .on("mouseleave", mouseleave)
+    // })
 }
 
-getConversationAndDraw(0, 5, 5);
+
 
 function getConversationAndDraw(index, startY, startX) {
     console.log(index);
@@ -205,6 +210,34 @@ const strokeScale = d3.scaleLinear()
     .domain([1, 10])
     .range([200, 100]);
 
+// TOOLTIP
+
+// create a tooltip
+var Tooltip = d3.select("#chart")
+    .append("div")
+    .attr('class', 'tooltip')
+    .style("opacity", 0);
+
+var mouseover = function (event, d) {
+    let sentence = "";
+    d.words.forEach(word => {
+        sentence += word[0] + " "
+    })
+    Tooltip.transition()
+        .duration(200)
+        .style("opacity", .9);
+    Tooltip.html(`${d['speaker_name']}<br/>${sentence}`)
+        .style("left", (event.pageX) + "px")
+        .style("top", (event.pageY - 28) + "px")
+        .style("max-width", (width - event.pageX) + "px");
+}
+var mouseleave = function (d) {
+    Tooltip.transition()
+        .duration(200)
+        .style("opacity", 0);
+
+}
+
 
 
 // ZOOM
@@ -236,5 +269,9 @@ function initZoom() {
     d3.select('svg')
         .call(zoom);
 }
+
+
+
+getConversationAndDraw(0, 5, 5);
 
 initZoom();
