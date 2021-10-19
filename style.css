@@ -77,98 +77,98 @@ img {
     stroke: #A32268;
 }
 
-#healthcare {
+#publichealth {
     background-color: white;
     border-color: #61AFF8;
     color: #61AFF8;
 }
 
-#healthcare.active {
+#publichealth.active {
     background-color: #61AFF8;
     color: white;
 }
 
-.healthcare.highlight {
+.publichealth.highlight {
     fill: #61AFF8;
 }
 
-.line_healthcare {
+.line_publichealth {
     stroke: #61AFF8;
 }
 
-#generations {
+#education {
     background-color: white;
     border-color: #E9864E;
     color: #E9864E;
 }
 
-#generations.active {
+#education.active {
     background-color: #E9864E;
     color: white;
 }
 
-.generations.highlight {
+.education.highlight {
     fill: #E9864E;
 }
 
-.line_generations {
+.line_education {
     stroke: #E9864E;
 }
 
-#abuse {
+#violence {
     background-color: white;
     border-color: #A02337;
     color: #A02337;
 }
 
-#abuse.active {
+#violence.active {
     background-color: #A02337;
     color: white;
 }
 
-.abuse.highlight {
+.violence.highlight {
     fill: #A02337;
 }
 
-.line_abuse {
+.line_violence {
     stroke: #A02337;
 }
 
-#growth {
+#economic {
     background-color: white;
     border-color: #64C064;
     color: #64C064;
 }
 
-#growth.active {
+#economic.active {
     background-color: #64C064;
     color: white;
 }
 
-.growth.highlight {
+.economic.highlight {
     fill: #64C064;
 }
 
-.line_growth {
+.line_economic {
     stroke: #64C064;
 }
 
-#inequality {
+#discrimination {
     background-color: white;
     border-color: #7D2AAF;
     color: #7D2AAF;
 }
 
-#inequality.active {
+#discrimination.active {
     background-color: #7D2AAF;
     color: white;
 }
 
-.inequality.highlight {
+.discrimination.highlight {
     fill: #7D2AAF;
 }
 
-.line_inequality {
+.line_discrimination {
     stroke: #7D2AAF;
 }
 
@@ -191,22 +191,22 @@ img {
     stroke: #4EAD8D;
 }
 
-#accountability {
+#gov {
     background-color: white;
     border-color: #2C6DAB;
     color: #2C6DAB;
 }
 
-#accountability.active {
+#gov.active {
     background-color: #2C6DAB;
     color: white;
 }
 
-.accountability.highlight {
+.gov.highlight {
     fill: #2C6DAB;
 }
 
-.line_accountability {
+.line_gov {
     stroke: #2C6DAB;
 }
 
