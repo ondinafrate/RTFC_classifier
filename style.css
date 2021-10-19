@@ -44,6 +44,11 @@ img {
 .tag-container-bottom>button {
     flex: 1;
     border: none;
+    color: white;
+    padding: 8px 0;
+    border-radius: 20px;
+    margin: 0 2px;
+    border: solid 2px;
 }
 
 .tag-container-bottom>img {
@@ -53,100 +58,156 @@ img {
 }
 
 #housing {
-    background-color: #2296F3;
+    background-color: white;
+    border-color: #A32268;
+    color: #A32268;
+}
+
+#housing.active {
+    background-color: #A32268;
+    color: white;
 }
 
 .housing.highlight {
-    fill: #2296F3;
+    fill: #A32268;
 
 }
 
 .line_housing {
-    stroke: #2296F3;
+    stroke: #A32268;
 }
 
 #healthcare {
-    background-color: #4CAF50;
+    background-color: white;
+    border-color: #61AFF8;
+    color: #61AFF8;
+}
+
+#healthcare.active {
+    background-color: #61AFF8;
+    color: white;
 }
 
 .healthcare.highlight {
-    fill: #4CAF50;
+    fill: #61AFF8;
 }
 
 .line_healthcare {
-    stroke: #4CAF50;
+    stroke: #61AFF8;
 }
 
 #generations {
-    background-color: #FFC108;
+    background-color: white;
+    border-color: #E9864E;
+    color: #E9864E;
+}
+
+#generations.active {
+    background-color: #E9864E;
+    color: white;
 }
 
 .generations.highlight {
-    fill: #FFC108;
+    fill: #E9864E;
 }
 
 .line_generations {
-    stroke: #FFC108;
+    stroke: #E9864E;
 }
 
 #abuse {
-    background-color: #E91E63;
+    background-color: white;
+    border-color: #A02337;
+    color: #A02337;
+}
+
+#abuse.active {
+    background-color: #A02337;
+    color: white;
 }
 
 .abuse.highlight {
-    fill: #E91E63;
+    fill: #A02337;
 }
 
 .line_abuse {
-    stroke: #E91E63;
+    stroke: #A02337;
 }
 
 #growth {
-    background-color: #FF9801;
+    background-color: white;
+    border-color: #64C064;
+    color: #64C064;
+}
+
+#growth.active {
+    background-color: #64C064;
+    color: white;
 }
 
 .growth.highlight {
-    fill: #FF9801;
+    fill: #64C064;
 }
 
 .line_growth {
-    stroke: #FF9801;
+    stroke: #64C064;
 }
 
 #inequality {
-    background-color: #F44335;
+    background-color: white;
+    border-color: #7D2AAF;
+    color: #7D2AAF;
+}
+
+#inequality.active {
+    background-color: #7D2AAF;
+    color: white;
 }
 
 .inequality.highlight {
-    fill: #F44335;
+    fill: #7D2AAF;
 }
 
 .line_inequality {
-    stroke: #F44335;
+    stroke: #7D2AAF;
 }
 
 #infrastructure {
-    background-color: #01BCD4;
+    background-color: white;
+    border-color: #4EAD8D;
+    color: #4EAD8D;
+}
+
+#infrastructure.active {
+    background-color: #4EAD8D;
+    color: white;
 }
 
 .infrastructure.highlight {
-    fill: #01BCD4;
+    fill: #4EAD8D;
 }
 
 .line_infrastructure {
-    stroke: #01BCD4;
+    stroke: #4EAD8D;
 }
 
 #accountability {
-    background-color: #FFEB3B;
+    background-color: white;
+    border-color: #2C6DAB;
+    color: #2C6DAB;
+}
+
+#accountability.active {
+    background-color: #2C6DAB;
+    color: white;
 }
 
 .accountability.highlight {
-    fill: #FFEB3B;
+    fill: #2C6DAB;
 }
 
 .line_accountability {
-    stroke: #FFEB3B;
+    stroke: #2C6DAB;
 }
 
 .tooltip {

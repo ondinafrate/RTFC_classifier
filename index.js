@@ -84,7 +84,7 @@ function drawConversation({
         .enter()
         .append('rect')
         .attr('class', () => {
-            return "snippet " + tags[Math.floor(Math.random() * tags.length * 20)] + " " + tags[Math.floor(Math.random() * tags.length * 20)]
+            return "snippet " + tags[Math.floor(Math.random() * tags.length * 120)] + " " + tags[Math.floor(Math.random() * tags.length * 120)]
         })
         .attr('x', (snippet) => x + conversationPadding + scale(snippet['audio_start_offset']))
         .attr('y', (snippet) => y + conversationPadding + ((snippetHeight + verticalSnippetPadding) * Number(snippet.speaker_id)))
