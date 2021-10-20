@@ -98,21 +98,21 @@ img {
 
 #education {
     background-color: white;
-    border-color: #E9864E;
-    color: #E9864E;
+    border-color: #8C4E23;
+    color: #8C4E23;
 }
 
 #education.active {
-    background-color: #E9864E;
+    background-color: ##8C4E23;
     color: white;
 }
 
 .education.highlight {
-    fill: #E9864E;
+    fill: #8C4E23;
 }
 
 .line_education {
-    stroke: #E9864E;
+    stroke: #8C4E23;
 }
 
 #violence {
@@ -193,21 +193,59 @@ img {
 
 #gov {
     background-color: white;
-    border-color: #2C6DAB;
-    color: #2C6DAB;
+    border-color: #2DA7B0;
+    color: #2DA7B0;
 }
 
 #gov.active {
-    background-color: #2C6DAB;
+    background-color: #2DA7B0;
     color: white;
 }
 
 .gov.highlight {
-    fill: #2C6DAB;
+    fill: #2DA7B0;
 }
 
 .line_gov {
+    stroke: #2DA7B0;
+}
+
+#safety {
+    background-color: white;
+    border-color: #2C6DAB;
+    color: #2C6DAB;
+}
+
+#safety.active {
+    background-color: #2C6DAB;
+    color: white;
+}
+
+.safety.highlight {
+    fill: #2C6DAB;
+}
+
+.line_safety {
     stroke: #2C6DAB;
+}
+
+#community {
+    background-color: white;
+    border-color: #E9864E;
+    color: #E9864E;
+}
+
+#community.active {
+    background-color: #E9864E;
+    color: white;
+}
+
+.community.highlight {
+    fill: #E9864E;
+}
+
+.line_community {
+    stroke: #E9864E;
 }
 
 .tooltip {

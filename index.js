@@ -46,7 +46,7 @@ let g = svg.append('g');
 //     // })
 // });
 
-const tags = ['housing', 'publichealth', 'violence', 'discrimination', 'economic', 'generations', 'gov', 'infrastructure'];
+const tags = ['housing', 'publichealth', 'violence', 'discrimination', 'economic', 'generations', 'gov', 'infrastructure', 'safety', 'community'];
 
 const conversationPadding = 5;
 const snippetHeight = 5;
