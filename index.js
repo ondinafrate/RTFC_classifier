@@ -1,11 +1,11 @@
-const conversationsList = [1483, 1484, 1466, 1465, 1461, 1462, 1463, 1447, 1446, 1438, 1441, 1478, 1442, 1434, 1464, 1414, 1413, 1412, 1407, 1403, 1406, 1382, 1379, 1380, 1378, 1411, 1405, 1363, 1360, 1439, 1358, 1355, 1353, 1357, 1352, 1347, 1348, 1349, 1354, 1320, 1323, 1322, 1317, 1304, 1319, 1306, 1311, 1309, 1336, 1310, 1305, 1321, 1293, 1312, 1307, 1290, 1292, 1281, 1280, 1273, 1285, 1268, 1269, 1282, 1251, 1219, 1211, 1225, 1227, 1284, 1223, 1314, 1231, 1192, 1286, 1191, 1190, 1220, 1230, 1193, 1183, 1184, 1189, 1221, 1179, 1177, 1182, 1175, 1178, 1171, 1172, 1174, 1181, 1173, 1170, 1222, 1160, 1337, 1161, 1162, 1157, 1159, 1154, 1151, 1152, 1141, 1131, 1122, 1123];
+const conversationsList = [1412, 1413, 1414, 1434, 1441, 1442, 1446, 1447, 1463, 1464, 1465, 1466, 1478, 1483, 1484, 1489, 1490, 1495, 1496, 1497, 1499, 1503, 1504, 1379, 1380, 1508, 1382, 1509, 1511, 1512, 1521, 1527, 1528, 1529, 1530, 1403, 1406, 1407];
 
-const canvasHeight = 650;
+const canvasHeight = 550;
 
 const width = 1130;
-const height = 600;
+const height = 500;
 
-document.getElementById("chart").style.height = "650px";
+document.getElementById("chart").style.height = canvasHeight +"px";
 
 let svg = d3.select("#chart")
     .append("svg")
@@ -46,12 +46,12 @@ let g = svg.append('g');
 //     // })
 // });
 
-const tags = ['housing', 'publichealth', 'violence', 'discrimination', 'economic', 'generations', 'gov', 'infrastructure', 'safety', 'community'];
+const tags = ['housing', 'publichealth', 'violence', 'discrimination', 'economic', 'generations', 'gov', 'infrastructure',  'community', 'safety',];
 
 const conversationPadding = 5;
-const snippetHeight = 5;
+const snippetHeight = 7;
 const verticalSnippetPadding = 1;
-const conversationWidth = 120;
+const conversationWidth = 180;
 
 function drawConversation({
     x,
@@ -65,10 +65,12 @@ function drawConversation({
 
     let height = snippetHeight * speakerCount + 2 * conversationPadding + verticalSnippetPadding * (speakerCount - 1);
 
+    let textSpaceWidth = 40;
+
     gConversation.append('rect')
-        .attr('x', x)
+        .attr('x', x + textSpaceWidth)
         .attr('y', y)
-        .attr('width', width)
+        .attr('width', width - textSpaceWidth)
         .attr('height', height)
         .attr('fill', function (d, i) {
             return '#F8F8F8';
@@ -76,17 +78,21 @@ function drawConversation({
 
     const scale = d3.scaleLinear()
         .domain([0, duration])
-        .range([0, width - 2 * conversationPadding]);
+        .range([0, width - 2 * conversationPadding - textSpaceWidth]);
 
+    const speakers = new Set();
     // snippets.forEach((snippet, index) => {
-    g.selectAll('snippet')
+    gConversation.append('g').selectAll('snippet')
         .data(snippets)
         .enter()
         .append('rect')
-        .attr('class', () => {
+        .attr('class', (snippet) => {
+            if(!speakers.has(snippet.speaker_name)){
+                speakers.add(snippet.speaker_name);
+            }
             return "snippet " + tags[Math.floor(Math.random() * tags.length * 120)] + " " + tags[Math.floor(Math.random() * tags.length * 120)]
         })
-        .attr('x', (snippet) => x + conversationPadding + scale(snippet['audio_start_offset']))
+        .attr('x', (snippet) => x + textSpaceWidth + conversationPadding + scale(snippet['audio_start_offset']))
         .attr('y', (snippet) => y + conversationPadding + ((snippetHeight + verticalSnippetPadding) * Number(snippet.speaker_id)))
         .attr('width', (snippet) => scale(snippet['duration']))
         .attr('height', snippetHeight)
@@ -94,7 +100,20 @@ function drawConversation({
             return '#A9A9A9';
         })
         .on("mouseover", mouseover)
-        .on("mouseleave", mouseleave)
+        .on("mouseleave", mouseleave);
+    console.log(Array.from(speakers))
+    gConversation.append('g')
+    .selectAll('speakers')
+    .data(Array.from(speakers))
+    .enter()
+    .append('text')
+    .attr("x", x)
+    .attr("y", (speaker, i) => y + conversationPadding + ((snippetHeight + verticalSnippetPadding) * Number(i)))
+    .attr("dy", snippetHeight/2)
+    .attr("alignment-baseline", 'middle')
+    .style("font-size", "8px")
+    .style("fill", '#A9A9A9')
+    .text((d) => { return d });
     // })
 }
 
@@ -109,7 +128,7 @@ function getConversationAndDraw(index, startY, startX) {
     //         'Target-URL': 'https://app.lvn.org/api/conversations/detail/' + conversationId,
     //     }),
     // })
-    d3.json('./data/' + conversationId + ".json")
+    d3.json('./data_RTFC/' + conversationId + ".json")
         .then(data => {
             const entities = data.data.entities;
             console.log(entities)
