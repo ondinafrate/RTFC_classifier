@@ -77,22 +77,22 @@ img {
     stroke: #A32268;
 }
 
-#publichealth {
+#public_health {
     background-color: white;
     border-color: #61AFF8;
     color: #61AFF8;
 }
 
-#publichealth.active {
+#public_health.active {
     background-color: #61AFF8;
     color: white;
 }
 
-.publichealth.highlight {
+.public_health.highlight {
     fill: #61AFF8;
 }
 
-.line_publichealth {
+.line_public_health {
     stroke: #61AFF8;
 }
 
@@ -134,22 +134,22 @@ img {
     stroke: #A02337;
 }
 
-#economic {
+#economic_opportunity {
     background-color: white;
     border-color: #64C064;
     color: #64C064;
 }
 
-#economic.active {
+#economic_opportunity.active {
     background-color: #64C064;
     color: white;
 }
 
-.economic.highlight {
+.economic_opportunity.highlight {
     fill: #64C064;
 }
 
-.line_economic {
+.line_economic_opportunity {
     stroke: #64C064;
 }
 
@@ -191,22 +191,22 @@ img {
     stroke: #4EAD8D;
 }
 
-#gov {
+#government_and_institutions {
     background-color: white;
     border-color: #2DA7B0;
     color: #2DA7B0;
 }
 
-#gov.active {
+#government_and_institutions.active {
     background-color: #2DA7B0;
     color: white;
 }
 
-.gov.highlight {
+.government_and_institutions.highlight {
     fill: #2DA7B0;
 }
 
-.line_gov {
+.line_government_and_institutions {
     stroke: #2DA7B0;
 }
 
@@ -229,22 +229,22 @@ img {
     stroke: #2C6DAB;
 }
 
-#community {
+#community_life {
     background-color: white;
     border-color: #E9864E;
     color: #E9864E;
 }
 
-#community.active {
+#community_life.active {
     background-color: #E9864E;
     color: white;
 }
 
-.community.highlight {
+.community_life.highlight {
     fill: #E9864E;
 }
 
-.line_community {
+.line_community_life {
     stroke: #E9864E;
 }
 

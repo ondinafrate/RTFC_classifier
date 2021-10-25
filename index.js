@@ -1,3 +1,10 @@
+const toSnakeCase = str =>
+  str &&
+  str
+    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+    .map(x => x.toLowerCase())
+    .join('_');
+
 const conversationsList = [1412, 1413, 1414, 1434, 1441, 1442, 1446, 1447, 1463, 1464, 1465, 1466, 1478, 1483, 1484, 1489, 1490, 1495, 1496, 1497, 1499, 1503, 1504, 1379, 1380, 1508, 1382, 1509, 1511, 1512, 1521, 1527, 1528, 1529, 1530, 1403, 1406, 1407];
 
 const canvasHeight = 550;
@@ -46,12 +53,14 @@ let g = svg.append('g');
 //     // })
 // });
 
-const tags = ['housing', 'publichealth', 'violence', 'discrimination', 'economic', 'generations', 'gov', 'infrastructure',  'community', 'safety',];
+const tags = ['housing', 'public_health', 'violence', 'discrimination', 'economic_opportunity', 'education', 'government_and_institutions', 'infrastructure',  'community_life', 'safety',];
 
 const conversationPadding = 5;
 const snippetHeight = 7;
 const verticalSnippetPadding = 1;
 const conversationWidth = 180;
+
+const tagsUnique = new Set();
 
 function drawConversation({
     x,
@@ -90,7 +99,15 @@ function drawConversation({
             if(!speakers.has(snippet.speaker_name)){
                 speakers.add(snippet.speaker_name);
             }
-            return "snippet " + tags[Math.floor(Math.random() * tags.length * 120)] + " " + tags[Math.floor(Math.random() * tags.length * 120)]
+            let tags = "";
+            if(snippet.tags) {
+                snippet.tags.forEach(tag => {
+                    const mainAndSubTag = tag.split('.');
+                    tags += toSnakeCase(mainAndSubTag[0]) + " ";
+                    tagsUnique.add(toSnakeCase(mainAndSubTag[0]));
+                })
+            }
+            return "snippet " + tags
         })
         .attr('x', (snippet) => x + textSpaceWidth + conversationPadding + scale(snippet['audio_start_offset']))
         .attr('y', (snippet) => y + conversationPadding + ((snippetHeight + verticalSnippetPadding) * Number(snippet.speaker_id)))
@@ -101,7 +118,6 @@ function drawConversation({
         })
         .on("mouseover", mouseover)
         .on("mouseleave", mouseleave);
-    console.log(Array.from(speakers))
     gConversation.append('g')
     .selectAll('speakers')
     .data(Array.from(speakers))
@@ -200,7 +216,7 @@ function toggleSnippet(e) {
         g.append('path')
             .attr("d", link(data))
             .attr("class", "line line_" + id)
-            .style("stroke-width", 0.5)
+            .style("stroke-width", 0.4)
             .attr('fill', 'none');
     })
     if (highlightedSnippets.has(id)) {
