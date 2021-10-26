@@ -1,6 +1,6 @@
 const toSnakeCase = str =>
-  str &&
-  str
+    str &&
+    str
     .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
     .map(x => x.toLowerCase())
     .join('_');
@@ -12,7 +12,7 @@ const canvasHeight = 550;
 const width = 1130;
 const height = 500;
 
-document.getElementById("chart").style.height = canvasHeight +"px";
+document.getElementById("chart").style.height = canvasHeight + "px";
 
 let svg = d3.select("#chart")
     .append("svg")
@@ -53,7 +53,7 @@ let g = svg.append('g');
 //     // })
 // });
 
-const tags = ['housing', 'public_health', 'violence', 'discrimination', 'economic_opportunity', 'education', 'government_and_institutions', 'infrastructure',  'community_life', 'safety',];
+const tags = ['housing', 'public_health', 'violence', 'discrimination', 'economic_opportunity', 'education', 'government_and_institutions', 'infrastructure', 'community_life', 'safety', ];
 
 const conversationPadding = 5;
 const snippetHeight = 7;
@@ -96,11 +96,11 @@ function drawConversation({
         .enter()
         .append('rect')
         .attr('class', (snippet) => {
-            if(!speakers.has(snippet.speaker_name)){
+            if (!speakers.has(snippet.speaker_name)) {
                 speakers.add(snippet.speaker_name);
             }
             let tags = "";
-            if(snippet.tags) {
+            if (snippet.tags) {
                 snippet.tags.forEach(tag => {
                     const mainAndSubTag = tag.split('.');
                     tags += toSnakeCase(mainAndSubTag[0]) + " ";
@@ -119,17 +119,19 @@ function drawConversation({
         .on("mouseover", mouseover)
         .on("mouseleave", mouseleave);
     gConversation.append('g')
-    .selectAll('speakers')
-    .data(Array.from(speakers))
-    .enter()
-    .append('text')
-    .attr("x", x)
-    .attr("y", (speaker, i) => y + conversationPadding + ((snippetHeight + verticalSnippetPadding) * Number(i)))
-    .attr("dy", snippetHeight/2)
-    .attr("alignment-baseline", 'middle')
-    .style("font-size", "8px")
-    .style("fill", '#A9A9A9')
-    .text((d) => { return d });
+        .selectAll('speakers')
+        .data(Array.from(speakers))
+        .enter()
+        .append('text')
+        .attr("x", x)
+        .attr("y", (speaker, i) => y + conversationPadding + ((snippetHeight + verticalSnippetPadding) * Number(i)))
+        .attr("dy", snippetHeight / 2)
+        .attr("alignment-baseline", 'middle')
+        .style("font-size", "8px")
+        .style("fill", '#A9A9A9')
+        .text((d) => {
+            return d
+        });
     // })
 }
 
@@ -195,30 +197,7 @@ var link = d3.linkHorizontal()
 function toggleSnippet(e) {
     this.classList.toggle('active');
     const id = e.target.id;
-    d3.selectAll('.' + id).each(function (d, i) {
-        let x = d3.select(this).attr('x');
-        let y = d3.select(this).attr('y');
 
-        let indexOfTag = tags.indexOf(id);
-        let tagWidth = width / tags.length;
-
-        let data = {
-            source: {
-                x: tagWidth * indexOfTag + tagWidth / 2,
-                y: canvasHeight
-            },
-            target: {
-                x,
-                y
-            }
-        };
-
-        g.append('path')
-            .attr("d", link(data))
-            .attr("class", "line line_" + id)
-            .style("stroke-width", 0.4)
-            .attr('fill', 'none');
-    })
     if (highlightedSnippets.has(id)) {
         highlightedSnippets.delete(id)
         d3.selectAll('.line_' + id).remove();
@@ -226,7 +205,66 @@ function toggleSnippet(e) {
     } else {
         highlightedSnippets.add(id);
     }
+
+    highlightComboButtons();
+    drawConnections();
     highlightSnippets();
+}
+
+function highlightComboButtons() {
+    if (!Array.from(highlightedSnippets).length) {
+        d3.selectAll('.tag-button').property("disabled", false);
+        d3.selectAll('.tag-button').classed('disabled', false);
+        return;
+    }
+    let connectionClass = "";
+    highlightedSnippets.forEach(id => {
+        connectionClass += "." + id;
+    });
+    let combos = [];
+    d3.selectAll('.tag-button').classed('disabled', true);
+    d3.selectAll('.tag-button').property("disabled", true);
+    tags.forEach(tag => {
+        if (highlightedSnippets.has(tag) || !d3.select(connectionClass + "." + tag).empty()) {
+            combos.push(tag);
+            d3.select('#' + tag).classed('disabled', false);
+            d3.select('#' + tag).property("disabled", false);
+        }
+    })
+}
+
+function drawConnections() {
+    let connectionClass = "";
+    highlightedSnippets.forEach(id => {
+        connectionClass += "." + id;
+    });
+    d3.selectAll('.line').remove();
+    d3.selectAll(connectionClass).each(function (d, i) {
+        let x = d3.select(this).attr('x');
+        let y = d3.select(this).attr('y');
+
+        highlightedSnippets.forEach(id => {
+            let indexOfTag = tags.indexOf(id);
+            let tagWidth = width / tags.length;
+
+            let data = {
+                source: {
+                    x: tagWidth * indexOfTag + tagWidth / 2,
+                    y: canvasHeight
+                },
+                target: {
+                    x,
+                    y
+                }
+            };
+
+            g.append('path')
+                .attr("d", link(data))
+                .attr("class", "line line_" + id)
+                .style("stroke-width", 0.4)
+                .attr('fill', 'none');
+        });
+    })
 }
 
 function highlightSnippets() {

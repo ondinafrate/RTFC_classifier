@@ -261,3 +261,7 @@ img {
     border-radius: 5px;
     pointer-events: none;
 }
+
+.tag-button.disabled {
+    opacity: .3;
+}
