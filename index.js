@@ -184,6 +184,8 @@ let highlightedSnippets = new Set();
 let buttons = document.getElementsByTagName('button')
 for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', toggleSnippet, false);
+    buttons[i].addEventListener('mouseover', hoverSnippet, false);
+    buttons[i].addEventListener("mouseout", exitHoverSnippet, false);
 }
 
 var link = d3.linkHorizontal()
@@ -198,7 +200,7 @@ function toggleSnippet(e) {
     this.classList.toggle('active');
     const id = e.target.id;
 
-    if (highlightedSnippets.has(id)) {
+    if (highlightedSnippets.has(id) && !this.classList.contains('active')) {
         highlightedSnippets.delete(id)
         d3.selectAll('.line_' + id).remove();
         d3.selectAll('.' + id).classed('highlight', false);
@@ -209,6 +211,30 @@ function toggleSnippet(e) {
     highlightComboButtons();
     drawConnections();
     highlightSnippets();
+}
+
+function hoverSnippet(e) {
+    const id = e.target.id;
+
+    if (highlightedSnippets.has(id)) {
+        return;
+    }
+    highlightedSnippets.add(id);
+
+    drawConnections();
+}
+
+function exitHoverSnippet(e) {
+    const id = e.target.id;
+
+    if (highlightedSnippets.has(id) && this.classList.contains('active')) {
+        return;
+    }
+
+    highlightedSnippets.delete(id)
+    d3.selectAll('.line_' + id).remove();
+
+    drawConnections();
 }
 
 function highlightComboButtons() {
@@ -240,8 +266,10 @@ function drawConnections() {
     });
     d3.selectAll('.line').remove();
     d3.selectAll(connectionClass).each(function (d, i) {
-        let x = d3.select(this).attr('x');
-        let y = d3.select(this).attr('y');
+        let x = Number(d3.select(this).attr('x'));
+        let y = Number(d3.select(this).attr('y'));
+        let dx = Number(d3.select(this).attr('width')) / 2;
+        let dy = Number(d3.select(this).attr('height')) / 2;
 
         highlightedSnippets.forEach(id => {
             let indexOfTag = tags.indexOf(id);
@@ -253,8 +281,8 @@ function drawConnections() {
                     y: canvasHeight
                 },
                 target: {
-                    x,
-                    y
+                    x: x + dx,
+                    y: y + dy,
                 }
             };
 
@@ -292,23 +320,30 @@ var Tooltip = d3.select("#chart")
     .style("opacity", 0);
 
 var mouseover = function (event, d) {
-    let sentence = "";
-    d.words.forEach(word => {
-        sentence += word[0] + " "
-    })
-    Tooltip.transition()
-        .duration(200)
-        .style("opacity", .9);
-    Tooltip.html(`${d['speaker_name']}<br/>${sentence}`)
-        .style("left", (event.pageX) + "px")
-        .style("top", (event.pageY - 28) + "px")
-        .style("max-width", (width - event.pageX) + "px");
-}
-var mouseleave = function (d) {
-    Tooltip.transition()
-        .duration(200)
-        .style("opacity", 0);
+    if (d['highlight_words']) {
+        Tooltip.transition()
+            .duration(200)
+            .style("opacity", .9);
+        if (event.pageX < width / 2) {
+            Tooltip.html(`${d['highlight_words']}`)
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY) + "px")
+                .style("max-width", (width - event.pageX) + "px");
+        } else {
+            Tooltip.html(`${d['highlight_words']}`)
+                .style("left", (0) + "px")
+                .style("top", (event.pageY) + "px")
+                .style("max-width", (event.pageX) + "px");
+        }
+    }
 
+}
+var mouseleave = function (event, d) {
+    if (d['highlight_words']) {
+        Tooltip.transition()
+            .duration(200)
+            .style("opacity", 0);
+    }
 }
 
 
