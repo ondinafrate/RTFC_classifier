@@ -101,6 +101,7 @@ function drawConversation({
             }
             let tags = "";
             if (snippet.tags) {
+                tags += "hasTag "
                 snippet.tags.forEach(tag => {
                     const mainAndSubTag = tag.split('.');
                     tags += toSnakeCase(mainAndSubTag[0]) + " ";
@@ -118,6 +119,7 @@ function drawConversation({
         })
         .on("mouseover", mouseover)
         .on("mouseleave", mouseleave);
+
     gConversation.append('g')
         .selectAll('speakers')
         .data(Array.from(speakers))
@@ -127,7 +129,7 @@ function drawConversation({
         .attr("y", (speaker, i) => y + conversationPadding + ((snippetHeight + verticalSnippetPadding) * Number(i)))
         .attr("dy", snippetHeight / 2)
         .attr("alignment-baseline", 'middle')
-        .style("font-size", "8px")
+        .style("font-size", "7px")
         .style("fill", '#A9A9A9')
         .text((d) => {
             return d
@@ -317,7 +319,9 @@ const strokeScale = d3.scaleLinear()
 var Tooltip = d3.select("#chart")
     .append("div")
     .attr('class', 'tooltip')
-    .style("opacity", 0);
+    .style("opacity", 0)
+    .style("left", (width) + "px")
+    .style("top", "0px");
 
 var mouseover = function (event, d) {
     if (d['highlight_words']) {
@@ -326,14 +330,14 @@ var mouseover = function (event, d) {
             .style("opacity", .9);
         if (event.pageX < width / 2) {
             Tooltip.html(`${d['highlight_words']}`)
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY) + "px")
-                .style("max-width", (width - event.pageX) + "px");
+            // .style("left", (event.pageX) + "px")
+            // .style("top", (event.pageY) + "px")
+            // .style("max-width", (width - event.pageX) + "px");
         } else {
             Tooltip.html(`${d['highlight_words']}`)
-                .style("left", (0) + "px")
-                .style("top", (event.pageY) + "px")
-                .style("max-width", (event.pageX) + "px");
+            // .style("left", (0) + "px")
+            // .style("top", (event.pageY) + "px")
+            // .style("max-width", (event.pageX) + "px");
         }
     }
 
