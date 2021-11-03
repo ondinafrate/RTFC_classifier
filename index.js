@@ -95,6 +95,9 @@ function drawConversation({
         .data(snippets)
         .enter()
         .append('rect')
+        .attr('id', (snippet) => {
+            return "id" + snippet['id'];
+        })
         .attr('class', (snippet) => {
             if (!speakers.has(snippet.speaker_name)) {
                 speakers.add(snippet.speaker_name);
@@ -118,7 +121,8 @@ function drawConversation({
             return '#A9A9A9';
         })
         .on("mouseover", mouseover)
-        .on("mouseleave", mouseleave);
+        .on("mouseleave", mouseleave)
+        .on("click", snippetClick);
 
     gConversation.append('g')
         .selectAll('speakers')
@@ -313,6 +317,15 @@ const strokeScale = d3.scaleLinear()
     .domain([1, 10])
     .range([200, 100]);
 
+// Info bar
+
+var Infobar = d3.select("#chart")
+    .append("div")
+    .attr('class', 'infobar')
+    .style("opacity", 0)
+    .style("left", (width) + "px")
+    .style("top", "0px");
+
 // TOOLTIP
 
 // create a tooltip
@@ -320,33 +333,43 @@ var Tooltip = d3.select("#chart")
     .append("div")
     .attr('class', 'tooltip')
     .style("opacity", 0)
-    .style("left", (width) + "px")
-    .style("top", "0px");
+// .style("left", (width) + "px")
+// .style("top", "0px");
 
 var mouseover = function (event, d) {
+
     if (d['highlight_words']) {
+        d3.select("#id" + d.id).classed("hover", true);
         Tooltip.transition()
             .duration(200)
             .style("opacity", .9);
-        if (event.pageX < width / 2) {
-            Tooltip.html(`${d['highlight_words']}`)
-            // .style("left", (event.pageX) + "px")
-            // .style("top", (event.pageY) + "px")
-            // .style("max-width", (width - event.pageX) + "px");
-        } else {
-            Tooltip.html(`${d['highlight_words']}`)
-            // .style("left", (0) + "px")
-            // .style("top", (event.pageY) + "px")
-            // .style("max-width", (event.pageX) + "px");
-        }
+        // if (event.pageX < width / 2) {
+        Tooltip.html(`${d['highlight_words'].split(' ').slice(0,20).join(' ') + "..."}`)
+            .style("left", (event.pageX) + "px")
+            .style("top", (event.pageY) + "px")
+            .style("max-width", (width - event.pageX) + "px");
+        // } else {
+        //     Tooltip.html(`${d['highlight_words']}`)
+        //     // .style("left", (0) + "px")
+        //     // .style("top", (event.pageY) + "px")
+        //     // .style("max-width", (event.pageX) + "px");
+        // }
     }
 
 }
 var mouseleave = function (event, d) {
+    d3.select("#id" + d.id).classed("hover", false);
     if (d['highlight_words']) {
         Tooltip.transition()
             .duration(200)
             .style("opacity", 0);
+    }
+}
+
+var snippetClick = function (event, d) {
+    if (d['highlight_words']) {
+        Infobar.html(`${d['highlight_words']}`)
+            .style("opacity", .9);;
     }
 }
 

@@ -258,8 +258,24 @@ img {
     /* width: 60px;
     height: 28px; */
     padding: 5px;
+    margin-top: 5px;
+    margin-left: 5px;
+    background: white;
+    font-size: 12px;
+    border: solid #A9A9A9;
+    border-width: 2px;
+    border-radius: 5px;
+    pointer-events: none;
+}
+
+.infobar {
+    position: absolute;
+    text-align: left;
+    /* width: 60px;
+    height: 28px; */
+    padding: 5px;
     margin: 20px;
-    font: 12px sans-serif;
+    font-size: 12px;
     background: white;
     border: solid #A9A9A9;
     border-width: 2px;
@@ -273,6 +289,10 @@ img {
 
 .snippet.hasTag {
     fill: #909090;
+}
+
+.snippet.hover {
+    fill: yellow;
 }
 
 /* .snippet.hasTag.highlight {
