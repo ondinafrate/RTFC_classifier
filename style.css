@@ -280,7 +280,23 @@ img {
     border: solid #A9A9A9;
     border-width: 2px;
     border-radius: 5px;
-    pointer-events: none;
+    overflow: auto;
+}
+
+#infobar-top {
+    display: flex;
+    flex-direction: row;
+}
+
+#infobar-speaker {
+    flex: 1;
+    font-weight: bold;
+}
+
+#close-infobar {
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
 }
 
 .tag-button.disabled {

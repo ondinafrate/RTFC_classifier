@@ -187,7 +187,7 @@ function getConversationAndDraw(index, startY, startX) {
 
 let highlightedSnippets = new Set();
 
-let buttons = document.getElementsByTagName('button')
+let buttons = document.getElementsByClassName('tag-button')
 for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', toggleSnippet, false);
     buttons[i].addEventListener('mouseover', hoverSnippet, false);
@@ -319,12 +319,20 @@ const strokeScale = d3.scaleLinear()
 
 // Info bar
 
-var Infobar = d3.select("#chart")
-    .append("div")
+var Infobar = d3.select("#infobar")
     .attr('class', 'infobar')
-    .style("opacity", 0)
+    .style("display", "none")
+    .style("max-height", canvasHeight + "px")
     .style("left", (width) + "px")
     .style("top", "0px");
+
+var InfobarText = d3.select('#infobar-text');
+
+var InfobarSpeaker = d3.select('#infobar-speaker');
+
+d3.select("#close-infobar").on('click', () => {
+    Infobar.style("display", "none");
+})
 
 // TOOLTIP
 
@@ -368,8 +376,9 @@ var mouseleave = function (event, d) {
 
 var snippetClick = function (event, d) {
     if (d['highlight_words']) {
-        Infobar.html(`${d['highlight_words']}`)
-            .style("opacity", .9);;
+        Infobar.style("display", "inherit");
+        InfobarText.html(`${d['highlight_words']}`);
+        InfobarSpeaker.html(d['speaker_name'])
     }
 }
 
