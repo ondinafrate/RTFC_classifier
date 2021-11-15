@@ -22,11 +22,13 @@
 <body>
     <div class="logo-container">
         <div id="chart">
-            <div id="infobar">
+            <!-- <div id="infobar">
+                <iframe src="https://labs.lvn.org/rtfc-lvn-embed/index.html?hid=1861"></iframe>
                 <div id="infobar-top"><span id="infobar-speaker"></span><button
                         id="close-infobar">X</button></div>
                 <div id="infobar-text"></div>
-            </div>
+
+            </div> -->
         </div>
         <!-- <div class="tag-container">
             <br></br>
@@ -66,6 +68,19 @@
             <img src='logo/safety.png' />
 
         </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+
+            <iframe id="audio-iframe"
+                src="https://labs.lvn.org/rtfc-lvn-embed/index.html?hid=1861"></iframe>
+            <span class="close">&times;</span>
+        </div>
+
     </div>
 
     <script src="index.js"></script>

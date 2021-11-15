@@ -9,8 +9,11 @@ const conversationsList = [1412, 1413, 1414, 1434, 1441, 1442, 1446, 1447, 1463,
 
 const canvasHeight = 550;
 
-const width = 1130;
+let width = Math.max(window.innerWidth - 28 * 2, 800);
 const height = 500;
+
+document.getElementsByClassName('tag-container-bottom')[0].style.width = width + "px";
+document.getElementsByClassName('tag-container-bottom')[1].style.width = width + "px";
 
 document.getElementById("chart").style.height = canvasHeight + "px";
 
@@ -58,7 +61,7 @@ const tags = ['housing', 'public_health', 'violence', 'discrimination', 'economi
 const conversationPadding = 5;
 const snippetHeight = 7;
 const verticalSnippetPadding = 1;
-const conversationWidth = 180;
+let conversationWidth = (width - 5 * 6) / 6;
 
 const tagsUnique = new Set();
 
@@ -213,7 +216,7 @@ function toggleSnippet(e) {
     } else {
         highlightedSnippets.add(id);
     }
-
+    console.log(highlightedSnippets)
     highlightComboButtons();
     drawConnections();
     highlightSnippets();
@@ -271,34 +274,36 @@ function drawConnections() {
         connectionClass += "." + id;
     });
     d3.selectAll('.line').remove();
-    d3.selectAll(connectionClass).each(function (d, i) {
-        let x = Number(d3.select(this).attr('x'));
-        let y = Number(d3.select(this).attr('y'));
-        let dx = Number(d3.select(this).attr('width')) / 2;
-        let dy = Number(d3.select(this).attr('height')) / 2;
+    if (connectionClass) {
+        d3.selectAll(connectionClass).each(function (d, i) {
+            let x = Number(d3.select(this).attr('x'));
+            let y = Number(d3.select(this).attr('y'));
+            let dx = Number(d3.select(this).attr('width')) / 2;
+            let dy = Number(d3.select(this).attr('height')) / 2;
 
-        highlightedSnippets.forEach(id => {
-            let indexOfTag = tags.indexOf(id);
-            let tagWidth = width / tags.length;
+            highlightedSnippets.forEach(id => {
+                let indexOfTag = tags.indexOf(id);
+                let tagWidth = width / tags.length;
 
-            let data = {
-                source: {
-                    x: tagWidth * indexOfTag + tagWidth / 2,
-                    y: canvasHeight
-                },
-                target: {
-                    x: x + dx,
-                    y: y + dy,
-                }
-            };
+                let data = {
+                    source: {
+                        x: tagWidth * indexOfTag + tagWidth / 2,
+                        y: canvasHeight
+                    },
+                    target: {
+                        x: x + dx,
+                        y: y + dy,
+                    }
+                };
 
-            g.append('path')
-                .attr("d", link(data))
-                .attr("class", "line line_" + id)
-                .style("stroke-width", 0.4)
-                .attr('fill', 'none');
-        });
-    })
+                g.append('path')
+                    .attr("d", link(data))
+                    .attr("class", "line line_" + id)
+                    .style("stroke-width", 0.4)
+                    .attr('fill', 'none');
+            });
+        })
+    }
 }
 
 function highlightSnippets() {
@@ -319,20 +324,20 @@ const strokeScale = d3.scaleLinear()
 
 // Info bar
 
-var Infobar = d3.select("#infobar")
-    .attr('class', 'infobar')
-    .style("display", "none")
-    .style("max-height", canvasHeight + "px")
-    .style("left", (width) + "px")
-    .style("top", "0px");
+// var Infobar = d3.select("#infobar")
+//     .attr('class', 'infobar')
+//     .style("display", "none")
+//     .style("max-height", canvasHeight + "px")
+//     .style("left", (width) + "px")
+//     .style("top", "0px");
 
-var InfobarText = d3.select('#infobar-text');
+// var InfobarText = d3.select('#infobar-text');
 
-var InfobarSpeaker = d3.select('#infobar-speaker');
+// var InfobarSpeaker = d3.select('#infobar-speaker');
 
-d3.select("#close-infobar").on('click', () => {
-    Infobar.style("display", "none");
-})
+// d3.select("#close-infobar").on('click', () => {
+//     Infobar.style("display", "none");
+// })
 
 // TOOLTIP
 
@@ -376,9 +381,47 @@ var mouseleave = function (event, d) {
 
 var snippetClick = function (event, d) {
     if (d['highlight_words']) {
-        Infobar.style("display", "inherit");
-        InfobarText.html(`${d['highlight_words']}`);
-        InfobarSpeaker.html(d['speaker_name'])
+        // Infobar.style("display", "inherit");
+        // InfobarText.html(`${d['highlight_words']}`);
+        // InfobarSpeaker.html(d['speaker_name']);
+
+        iframe.src = "https://labs.lvn.org/rtfc-lvn-embed/index.html?hid=" + d['highlight_id']
+        modal.style.display = "block";
+
+    }
+}
+
+
+// MODAL / OVERLAY
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+var iframe = document.getElementById('audio-iframe');
+
+iframe.onload = function () {
+    iframe.style.visibility = "visible"
+};
+
+// When the user clicks on the button, open the modal
+// btn.onclick = function() {
+//   modal.style.display = "block";
+// }
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+    modal.style.display = "none";
+    iframe.style.visibility = "hidden";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+        iframe.style.visibility = "hidden";
     }
 }
 
@@ -419,3 +462,16 @@ function initZoom() {
 getConversationAndDraw(0, 5, 5);
 
 initZoom();
+
+// function drawChart() {
+//     width = window.innerWidth - 28 * 2;
+//     conversationWidth = (width - 5 * 6) / 6;
+
+//     svg.attr("width", width);
+
+//     getConversationAndDraw(0, 5, 5);
+
+//     initZoom();
+// }
+
+// window.addEventListener('resize', drawChart);
