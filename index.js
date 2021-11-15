@@ -415,6 +415,7 @@ iframe.onload = function () {
 span.onclick = function () {
     modal.style.display = "none";
     iframe.style.visibility = "hidden";
+    iframe.src = "";
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -422,6 +423,7 @@ window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
         iframe.style.visibility = "hidden";
+        iframe.src = "";
     }
 }
 
