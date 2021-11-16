@@ -356,6 +356,7 @@ img {
     border: 1px solid #888;
     width: 80%;
     display: flex;
+    max-width: 800px;
 }
 
 /* The Close Button */
