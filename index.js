@@ -92,8 +92,9 @@ function drawConversation({
         .domain([0, duration])
         .range([0, width - 2 * conversationPadding - textSpaceWidth]);
 
-    const speakers = new Set();
+    const speakersObj = {};
     // snippets.forEach((snippet, index) => {
+    console.log(snippets)
     gConversation.append('g').selectAll('snippet')
         .data(snippets)
         .enter()
@@ -102,8 +103,8 @@ function drawConversation({
             return "id" + snippet['id'];
         })
         .attr('class', (snippet) => {
-            if (!speakers.has(snippet.speaker_name)) {
-                speakers.add(snippet.speaker_name);
+            if (!speakersObj[snippet.speaker_id]) {
+                speakersObj[snippet.speaker_id] = snippet.speaker_name;
             }
             let tags = "";
             if (snippet.tags) {
@@ -121,15 +122,19 @@ function drawConversation({
         .attr('width', (snippet) => scale(snippet['duration']))
         .attr('height', snippetHeight)
         .attr('fill', function (d, i) {
-            return '#A9A9A9';
+            return '#d0d4d4';
         })
         .on("mouseover", mouseover)
         .on("mouseleave", mouseleave)
         .on("click", snippetClick);
 
+    const speakers = [];
+    for (let i = 0; i < speakerCount; i++) {
+        speakers.push(speakersObj[i]);
+    }
     gConversation.append('g')
         .selectAll('speakers')
-        .data(Array.from(speakers))
+        .data(speakers)
         .enter()
         .append('text')
         .attr("x", x)
@@ -170,11 +175,31 @@ function getConversationAndDraw(index, startY, startX) {
                 startX += conversationWidth + 5;
             }
 
+            const cleanSnippets = [];
+            let lastSnippet;
+            Object.values(entities.snippets).forEach(snippet => {
+                if (lastSnippet) {
+                    if (lastSnippet.speaker_id === snippet.speaker_id) {
+                        lastSnippet.audio_end_offset = snippet.audio_end_offset;
+                        lastSnippet.duration += snippet.duration;
+                    } else {
+                        cleanSnippets.push(lastSnippet);
+                        lastSnippet = snippet;
+                    }
+                } else {
+                    lastSnippet = snippet;
+                }
+            })
+            if (lastSnippet) {
+                cleanSnippets.push(lastSnippet);
+                lastSnippet = undefined;
+            }
+
             drawConversation({
                 x: startX,
                 y: startY,
                 width: conversationWidth,
-                snippets: Object.values(entities.snippets),
+                snippets: cleanSnippets,
                 duration: conversationDuration,
                 speakerCount
             });
@@ -308,11 +333,15 @@ function drawConnections() {
 
 function highlightSnippets() {
     d3.selectAll('.snippet').style('opacity', 0.5);
+    let connectionClass = "";
     highlightedSnippets.forEach(id => {
-        d3.selectAll('.' + id)
+        connectionClass += "." + id;
+    });
+    if (highlightedSnippets.size > 0) {
+        d3.selectAll(connectionClass)
             .style('opacity', 1)
             .classed('highlight', true);
-    });
+    }
     if (highlightedSnippets.size === 0) {
         d3.selectAll('.snippet').style('opacity', 1);
     }

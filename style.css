@@ -307,11 +307,11 @@ img {
 }
 
 .snippet.hasTag {
-    fill: #909090;
+    fill: #767676;
 }
 
 .snippet.hover {
-    fill: yellow;
+    fill: #FFBB00;
 }
 
 /* .snippet.hasTag.highlight {
