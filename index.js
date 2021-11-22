@@ -77,7 +77,7 @@ function drawConversation({
 
     let height = snippetHeight * speakerCount + 2 * conversationPadding + verticalSnippetPadding * (speakerCount - 1);
 
-    let textSpaceWidth = 0; // 40
+    let textSpaceWidth = 10; // 40
 
     gConversation.append('rect')
         .attr('x', x + textSpaceWidth)
