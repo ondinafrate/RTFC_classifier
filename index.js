@@ -77,7 +77,7 @@ function drawConversation({
 
     let height = snippetHeight * speakerCount + 2 * conversationPadding + verticalSnippetPadding * (speakerCount - 1);
 
-    let textSpaceWidth = 40;
+    let textSpaceWidth = 0; // 40
 
     gConversation.append('rect')
         .attr('x', x + textSpaceWidth)
@@ -128,24 +128,24 @@ function drawConversation({
         .on("mouseleave", mouseleave)
         .on("click", snippetClick);
 
-    const speakers = [];
-    for (let i = 0; i < speakerCount; i++) {
-        speakers.push(speakersObj[i]);
-    }
-    gConversation.append('g')
-        .selectAll('speakers')
-        .data(speakers)
-        .enter()
-        .append('text')
-        .attr("x", x)
-        .attr("y", (speaker, i) => y + conversationPadding + ((snippetHeight + verticalSnippetPadding) * Number(i)))
-        .attr("dy", snippetHeight / 2)
-        .attr("alignment-baseline", 'middle')
-        .style("font-size", "7px")
-        .style("fill", '#A9A9A9')
-        .text((d) => {
-            return d
-        });
+    // const speakers = [];
+    // for (let i = 0; i < speakerCount; i++) {
+    //     speakers.push(speakersObj[i]);
+    // }
+    // gConversation.append('g')
+    //     .selectAll('speakers')
+    //     .data(speakers)
+    //     .enter()
+    //     .append('text')
+    //     .attr("x", x)
+    //     .attr("y", (speaker, i) => y + conversationPadding + ((snippetHeight + verticalSnippetPadding) * Number(i)))
+    //     .attr("dy", snippetHeight / 2)
+    //     .attr("alignment-baseline", 'middle')
+    //     .style("font-size", "7px")
+    //     .style("fill", '#A9A9A9')
+    //     .text((d) => {
+    //         return d
+    //     });
     // })
 }
 
