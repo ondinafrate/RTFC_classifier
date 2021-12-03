@@ -26,6 +26,7 @@ for i in data:
         if str(hAnnotationId) in highlight_text:
             convData['data']['entities']['snippets'][str(snippetId)]['highlight_words'] = highlight_text[str(hAnnotationId)]
             convData['data']['entities']['snippets'][str(snippetId)]['highlight_id'] = hAnnotationId
+            convData['data']['entities']['snippets'][str(snippetId)]['neighborhood'] = i['neighborhood']
             print("added words for " + str(hAnnotationId))
         
     

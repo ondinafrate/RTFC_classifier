@@ -413,7 +413,7 @@ var snippetClick = function (event, d) {
         // InfobarText.html(`${d['highlight_words']}`);
         // InfobarSpeaker.html(d['speaker_name']);
 
-        iframe.src = "https://labs.lvn.org/rtfc-lvn-embed/index.html?hid=" + d['highlight_id']
+        iframe.src = "https://labs.lvn.org/rtfc-lvn-embed/index.html?hid=" + d['highlight_id'] + "&neighborhood=" + d['neighborhood']
         modal.style.display = "block";
         console.log(d)
         d3.selectAll(".modal-tag-container > div").classed("visible", false);
