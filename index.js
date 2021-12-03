@@ -415,7 +415,12 @@ var snippetClick = function (event, d) {
 
         iframe.src = "https://labs.lvn.org/rtfc-lvn-embed/index.html?hid=" + d['highlight_id']
         modal.style.display = "block";
-
+        console.log(d)
+        d3.selectAll(".modal-tag-container > div").classed("visible", false);
+        d.tags.forEach(tag => {
+            let mainTag = toSnakeCase(tag.split('.')[0]);
+            d3.select(".modal-tag-container > #" + mainTag).classed("visible", true);
+        })
     }
 }
 
@@ -486,7 +491,6 @@ function initZoom() {
     d3.select('svg')
         .call(zoom);
 }
-
 
 
 getConversationAndDraw(0, 5, 5);

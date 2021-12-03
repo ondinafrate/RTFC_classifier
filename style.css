@@ -74,6 +74,10 @@ img {
     color: white;
 }
 
+button#housing:not(.active):hover {
+    background-color: #F1DEE8;
+}
+
 .housing.highlight {
     fill: #A32268;
 
@@ -92,6 +96,10 @@ img {
 #public_health.active {
     background-color: #61AFF8;
     color: white;
+}
+
+button#public_health:not(.active):hover {
+    background-color: #E7F3FE;
 }
 
 .public_health.highlight {
@@ -113,6 +121,10 @@ img {
     color: white;
 }
 
+button#education:not(.active):hover {
+    background-color: #EEE4DE;
+}
+
 .education.highlight {
     fill: #8C4E23;
 }
@@ -130,6 +142,10 @@ img {
 #violence.active {
     background-color: #A02337;
     color: white;
+}
+
+button#violence:not(.active):hover {
+    background-color: #F1DEE1;
 }
 
 .violence.highlight {
@@ -151,6 +167,10 @@ img {
     color: white;
 }
 
+button#economic_opportunity:not(.active):hover {
+    background-color: #E8F6E8;
+}
+
 .economic_opportunity.highlight {
     fill: #64C064;
 }
@@ -168,6 +188,10 @@ img {
 #discrimination.active {
     background-color: #7D2AAF;
     color: white;
+}
+
+button#discrimination:not(.active):hover {
+    background-color: #ECDFF3;
 }
 
 .discrimination.highlight {
@@ -189,6 +213,10 @@ img {
     color: white;
 }
 
+button#infrastructure:not(.active):hover {
+    background-color: #E4F3EE;
+}
+
 .infrastructure.highlight {
     fill: #4EAD8D;
 }
@@ -206,6 +234,10 @@ img {
 #government_and_institutions.active {
     background-color: #2DA7B0;
     color: white;
+}
+
+button#government_and_institutions:not(.active):hover {
+    background-color: #E0F2F3;
 }
 
 .government_and_institutions.highlight {
@@ -227,6 +259,10 @@ img {
     color: white;
 }
 
+button#safety:not(.active):hover {
+    background-color: #DFE9F2;
+}
+
 .safety.highlight {
     fill: #2C6DAB;
 }
@@ -244,6 +280,10 @@ img {
 #community_life.active {
     background-color: #E9864E;
     color: white;
+}
+
+button#community_life:not(.active):hover {
+    background-color: #FCEDE4;
 }
 
 .community_life.highlight {
@@ -356,7 +396,31 @@ img {
     border: 1px solid #888;
     width: 80%;
     display: flex;
+    flex-direction: column;
     max-width: 800px;
+}
+
+.iframe-container {
+    display: flex;
+}
+
+.modal-tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tag-modal {
+    border-radius: 20px;
+    display: none;
+    padding: 4px 8px;
+    margin: 2px 4px;
+    border: 1px solid;
+    font-size: 12px;
+}
+
+.tag-modal.visible {
+    display: inherit;
 }
 
 /* The Close Button */
