@@ -114,6 +114,11 @@ function drawConversation({
                     tags += toSnakeCase(mainAndSubTag[0]) + " ";
                     tagsUnique.add(toSnakeCase(mainAndSubTag[0]));
                 })
+
+                if(snippet.personal_experience === "True"){
+                    tags += " personal_experience";
+                    console.log(snippet)
+                }
             }
             return "snippet " + tags
         })

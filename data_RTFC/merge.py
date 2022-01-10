@@ -6,11 +6,13 @@ f = open('highlights.json')
 data = json.load(f)
 
 highlight_text = {}
+personal_experience = {}
 
 with open('highlight_text.csv', mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
     for row in csv_reader:
         highlight_text[row['highlight_id']] = row['highlight_words']
+        personal_experience[row['highlight_id']] = row['label']
 
 for i in data:
     hConvId = i['conversation_id']
@@ -25,6 +27,7 @@ for i in data:
         convData['data']['entities']['snippets'][str(snippetId)]['tags'] = i['tags']
         if str(hAnnotationId) in highlight_text:
             convData['data']['entities']['snippets'][str(snippetId)]['highlight_words'] = highlight_text[str(hAnnotationId)]
+            convData['data']['entities']['snippets'][str(snippetId)]['personal_experience'] = personal_experience[str(hAnnotationId)]
             convData['data']['entities']['snippets'][str(snippetId)]['highlight_id'] = hAnnotationId
             convData['data']['entities']['snippets'][str(snippetId)]['neighborhood'] = i['neighborhood']
             print("added words for " + str(hAnnotationId))

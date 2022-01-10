@@ -350,8 +350,12 @@ button#community_life:not(.active):hover {
     fill: #767676;
 }
 
+.snippet.hasTag.personal_experience {
+    fill: #FAED26;
+}
+
 .snippet.hover {
-    fill: #FFBB00;
+    fill: #FFBB00 !important;
 }
 
 /* .snippet.hasTag.highlight {
@@ -437,3 +441,4 @@ button#community_life:not(.active):hover {
     text-decoration: none;
     cursor: pointer;
 }
+
